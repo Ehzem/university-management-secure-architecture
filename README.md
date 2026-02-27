@@ -1,7 +1,7 @@
 # Secure Architecture & Threat Modeling
 ## University Management System (UMS)
 
-This repository contains the full secure architecture design and formal threat modeling analysis for an internet-facing University Management System.
+This repository contains the full secure architecture design and formal threat modeling analysis for an internet facing University Management System.
 
 The project includes:
 
