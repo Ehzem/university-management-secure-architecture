@@ -17,7 +17,23 @@ The University Management System (UMS) is an internet-facing enterprise platform
 The system is cloud-agnostic and accessible over the public internet. Both external attackers and insider threats are considered.
 
 ---
-## 1.2 Components (what exists)
+
+## 1.2 Assumptions
+
+- System is accessible over the public internet.
+- Users authenticate via centralized Identity Provider (IdP).
+- System stores sensitive personal and financial data.
+- Administrative users have high-impact privileges.
+- Third-party integrations are untrusted by default.
+- Secure development lifecycle is partially implemented but not assumed perfect.
+- The deployment environment follows standard enterprise practices.
+- Security must be implemented at architectural level, not only at code level.
+
+---
+
+# 2. System definition + architecture 
+
+## 2.1 Components (what exists)
 
 ### User-facing
 
@@ -45,38 +61,39 @@ The system is cloud-agnostic and accessible over the public internet. Both exter
 - Payment provider / bank rails (fees)
 - Job portals / company job feeds
 - Email/SMS gateway
+  
 ---
 
-## 1.2 Assumptions
+## 2.2 Users & roles (actors)
 
-- System is accessible over the public internet.
-- Users authenticate via centralized Identity Provider (IdP).
-- System stores sensitive personal and financial data.
-- Administrative users have high-impact privileges.
-- Third-party integrations are untrusted by default.
-- Secure development lifecycle is partially implemented but not assumed perfect.
-- The deployment environment follows standard enterprise practices.
-- Security must be implemented at architectural level, not only at code level.
+- Student (internet-facing)
+- Faculty (internet-facing)
+- Admin/Registrar (internet-facing but separate admin plane)
+- IT Ops / DBA (insiders)
+- Third parties (payment provider, job portals)
+- External attacker (anonymous internet)
 
 ---
 
-# 2. Architecture & Trust Boundaries
-
-## 2.1 Trust Boundaries
+## 2.3 Trust Boundaries
 
 The following trust boundaries are defined:
 
 - **TB1 – Internet Boundary**  
   Between external users and the university edge infrastructure.
+  Untrusted traffic enters (students/faculty/admin)
 
 - **TB2 – Application Boundary**  
   Between edge infrastructure and backend services.
+  Only controlled service-to-service access
 
 - **TB3 – Data Boundary**  
   Between application services and databases.
+  Strictly segmented, least privilege
 
 - **TB4 – Third-Party Boundary**  
   Between university services and external providers.
+  Payment + job portal integrations (untrusted inputs)
 
 ---
 
