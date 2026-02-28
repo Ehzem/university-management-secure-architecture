@@ -17,6 +17,35 @@ The University Management System (UMS) is an internet-facing enterprise platform
 The system is cloud-agnostic and accessible over the public internet. Both external attackers and insider threats are considered.
 
 ---
+## 1.2 Components (what exists)
+
+### User-facing
+
+- Student Portal (LMS, Attendance, Fees, Grades, Alumni, Wellness, Library)
+- Faculty Portal (LMS, Attendance, Salary/HR view, Courses, Library, Wellness)
+- Admin/Registrar Portal (high privilege: student records, fees, grades, provisioning)
+
+### Backend
+
+- API Backend (core business logic)
+- Auth Service / Identity Provider (IdP) integration (SSO)
+- Notification service (email/SMS)
+- Reporting/Analytics service
+
+### Data stores
+
+- Student DB (PII + academic records)
+- Faculty/HR DB (salaries, contracts)
+- Finance DB (fees, invoices, payment status)
+- LMS content store (files, submissions)
+- Logs/Audit store
+
+### External integrations
+
+- Payment provider / bank rails (fees)
+- Job portals / company job feeds
+- Email/SMS gateway
+---
 
 ## 1.2 Assumptions
 
