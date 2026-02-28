@@ -9,31 +9,10 @@
 
 The University Management System (UMS) is an internet-facing enterprise platform that supports:
 
-- Student access:
-  - LMS
-  - Attendance
-  - Fees
-  - Grades
-  - Alumni
-  - Wellness
-  - Library Management
-- Faculty access:
-  - LMS
-  - Attendance
-  - Salary information
-  - Course management
-  - Library
-  - Wellness
-- Administrative / Registrar functions:
-  - Student records
-  - Academic management
-  - Financial operations
-  - Role provisioning
-- External integrations:
-  - Payment providers
-  - Job portal feeds
-  - Email/SMS gateways
-  - Identity provider (SSO)
+- Student access: LMS, Attendance, Fees, Grades, Alumni, Wellness, Library Management
+- Faculty access: LMS, Attendance, Salary information, Course management, Library, Wellness
+- Administrative / Registrar functions: Student records, Academic management, Financial operations, Role provisioning
+- External integrations: Payment providers, Job portal feeds, Email/SMS gateways, Identity provider (SSO)
 
 The system is cloud-agnostic and accessible over the public internet. Both external attackers and insider threats are considered.
 
@@ -41,10 +20,12 @@ The system is cloud-agnostic and accessible over the public internet. Both exter
 
 ## 1.2 Assumptions
 
-- The system is internet-facing.
-- Sensitive personal and financial data is stored.
-- Administrative users possess high-impact privileges.
+- System is accessible over the public internet.
+- Users authenticate via centralized Identity Provider (IdP).
+- System stores sensitive personal and financial data.
+- Administrative users have high-impact privileges.
 - Third-party integrations are untrusted by default.
+- Secure development lifecycle is partially implemented but not assumed perfect.
 - The deployment environment follows standard enterprise practices.
 - Security must be implemented at architectural level, not only at code level.
 
