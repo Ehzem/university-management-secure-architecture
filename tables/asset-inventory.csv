@@ -1,10 +1,10 @@
 Asset,Location,Objective
-Credentials,IdP,Confidentiality/Integrity
-Student PII,Student DB,Confidentiality
-Grades,Student DB,Integrity/Accountability
-Fee Records,Finance DB,Integrity/Availability
-Faculty Salary,HR DB,Confidentiality
-LMS Files,Object Storage,Confidentiality/Integrity
-Admin Privileges,Admin Portal,Integrity/Accountability
-Audit Logs,Log Store,Integrity/Availability
-API Keys,Secrets Vault,Confidentiality
+Credentials & Sessions	User authentication tokens, passwords,	Confidentiality/Integrity/Accountability
+Student PII,	Names/IDs/contact info,	Confidentiality/Integrity
+Academic Records,	Grades/transcripts/attendance,	Integrity/Accountability
+Fee Data,	Invoices/payment status,	Integrity/Availability
+Faculty Salary Data,	Payroll records,	Confidentiality/Integrity
+LMS Content,	Assignments/submissions,	Confidentiality/Integrity/Availability
+Admin Privileges,	Registrar-level authority,	Integrity/Accountability
+Audit Logs,	Action history,	Integrity/Availability/Accountability
+API Keys,	Payment/job integration secrets,	Confidentiality
