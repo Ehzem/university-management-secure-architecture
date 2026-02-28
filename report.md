@@ -1,0 +1,125 @@
+# Secure Architecture & Threat Modeling Report  
+## University Management System (UMS)
+
+---
+
+# 1. System Overview
+
+## 1.1 Purpose
+
+The University Management System (UMS) is an internet-facing enterprise platform that supports:
+
+- Student access:
+  - LMS
+  - Attendance
+  - Fees
+  - Grades
+  - Alumni
+  - Wellness
+  - Library Management
+- Faculty access:
+  - LMS
+  - Attendance
+  - Salary information
+  - Course management
+  - Library
+  - Wellness
+- Administrative / Registrar functions:
+  - Student records
+  - Academic management
+  - Financial operations
+  - Role provisioning
+- External integrations:
+  - Payment providers
+  - Job portal feeds
+  - Email/SMS gateways
+  - Identity provider (SSO)
+
+The system is cloud-agnostic and accessible over the public internet. Both external attackers and insider threats are considered.
+
+---
+
+## 1.2 Assumptions
+
+- The system is internet-facing.
+- Sensitive personal and financial data is stored.
+- Administrative users possess high-impact privileges.
+- Third-party integrations are untrusted by default.
+- The deployment environment follows standard enterprise practices.
+- Security must be implemented at architectural level, not only at code level.
+
+---
+
+# 2. Architecture & Trust Boundaries
+
+## 2.1 Trust Boundaries
+
+The following trust boundaries are defined:
+
+- **TB1 – Internet Boundary**  
+  Between external users and the university edge infrastructure.
+
+- **TB2 – Application Boundary**  
+  Between edge infrastructure and backend services.
+
+- **TB3 – Data Boundary**  
+  Between application services and databases.
+
+- **TB4 – Third-Party Boundary**  
+  Between university services and external providers.
+
+---
+
+## 2.2 Initial Architecture Diagram
+
+![Initial Architecture](./diagrams/architecture-v1.png)
+
+The architecture consists of:
+
+- Web frontend
+- Admin frontend
+- API backend
+- LMS, Fees, Grades, Library, Wellness services
+- Student, HR, and Finance databases
+- Logging system
+- Third-party integrations
+
+Administrative traffic is routed separately from student/faculty traffic.
+
+---
+
+# 3. Asset Identification & Security Objectives
+
+Full asset list available in:
+
+- [Asset Inventory (CSV)](./tables/asset-inventory.csv)
+
+## 3.1 Critical Assets
+
+- Credentials & authentication tokens
+- Student personally identifiable information (PII)
+- Academic records (grades, transcripts)
+- Financial data (fees, invoices)
+- Faculty salary information
+- LMS files and submissions
+- Administrative privileges
+- Audit logs
+- API secrets and keys
+
+---
+
+## 3.2 Security Objectives
+
+### Confidentiality
+Prevent unauthorized access to personal, financial, and administrative data.
+
+### Integrity
+Ensure grades, attendance records, fees, and logs cannot be tampered with.
+
+### Availability
+Ensure uptime during peak academic periods such as exams and registration.
+
+### Accountability
+All sensitive actions must be traceable to uniquely authenticated users.
+
+---
