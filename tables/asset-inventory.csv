@@ -1,4 +1,4 @@
-Asset,Location,Objective
+Asset,Description,Objective
 Credentials & Sessions	User authentication tokens, passwords,	Confidentiality/Integrity/Accountability
 Student PII,	Names/IDs/contact info,	Confidentiality/Integrity
 Academic Records,	Grades/transcripts/attendance,	Integrity/Accountability
