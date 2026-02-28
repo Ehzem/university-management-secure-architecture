@@ -81,18 +81,22 @@ The following trust boundaries are defined:
 
 - **TB1 – Internet Boundary**  
   Between external users and the university edge infrastructure.
+  
   Untrusted traffic enters (students/faculty/admin)
 
 - **TB2 – Application Boundary**  
   Between edge infrastructure and backend services.
+  
   Only controlled service-to-service access
 
 - **TB3 – Data Boundary**  
   Between application services and databases.
+  
   Strictly segmented, least privilege
 
 - **TB4 – Third-Party Boundary**  
   Between university services and external providers.
+  
   Payment + job portal integrations (untrusted inputs)
 
 ---
