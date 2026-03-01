@@ -444,30 +444,108 @@ Full asset list available in:
 
 ## 3.1 Critical Assets
 
-- Credentials & authentication tokens
-- Student personally identifiable information (PII)
-- Academic records (grades, transcripts)
-- Financial data (fees, invoices)
-- Faculty salary information
-- LMS files and submissions
-- Administrative privileges
-- Audit logs
-- API secrets and keys
+The following assets are considered critical due to their sensitivity, business impact, or privilege level within the University Management System (UMS):
 
----
+1. **Credentials & Authentication Tokens**
+   - User passwords
+   - Session tokens
+   - OAuth/SSO tokens
+   - Multi-factor authentication (MFA) factors
+
+2. **Student Personally Identifiable Information (PII)**
+   - Names and student IDs
+   - Contact details
+   - Enrollment information
+
+3. **Academic Records**
+   - Grades
+   - Transcripts
+   - GPA calculations
+   - Attendance records
+
+4. **Financial Data**
+   - Fee invoices
+   - Payment status
+   - Refunds and adjustments
+   - Transaction references
+
+5. **Faculty HR and Salary Data**
+   - Payroll records
+   - Employment contracts
+   - Compensation information
+
+6. **LMS Content and Submissions**
+   - Assignment uploads
+   - Course materials
+   - Student submissions
+
+7. **Administrative Privileges and Role Assignments**
+   - Registrar-level authority
+   - Role provisioning rights
+   - Access control policies
+
+8. **Audit Logs and Security Logs**
+   - Login attempts
+   - Grade modifications
+   - Fee adjustments
+   - Privilege changes
+
+9. **API Secrets and Integration Keys**
+   - Payment provider API keys
+   - Webhook verification secrets
+   - Email/SMS gateway credentials
+
+10. **System Configuration and Business Logic Rules**
+    - Fee calculation rules
+    - GPA calculation logic
+    - Authorization policies
+
 
 ## 3.2 Security Objectives
 
+Security objectives are derived from the CIA model (Confidentiality, Integrity, Availability) with Accountability added due to the administrative sensitivity of the system.
+
 ### Confidentiality
-Prevent unauthorized access to personal, financial, and administrative data.
 
-### Integrity
-Ensure grades, attendance records, fees, and logs cannot be tampered with.
+Prevent unauthorized disclosure of:
+- Student PII
+- Faculty salary data
+- Authentication tokens
+- API secrets
+- Sensitive LMS content
 
-### Availability
-Ensure uptime during peak academic periods such as exams and registration.
-
-### Accountability
-All sensitive actions must be traceable to uniquely authenticated users.
+Confidentiality is critical due to privacy requirements and institutional reputation risks.
 
 ---
+
+### Integrity
+
+Ensure that:
+- Grades and transcripts cannot be altered without authorization
+- Attendance records remain accurate
+- Financial records cannot be manipulated
+- Audit logs cannot be tampered with
+- Role assignments are correctly enforced
+
+Integrity is particularly critical in academic and financial contexts.
+
+---
+
+### Availability
+
+Ensure system availability during:
+- Registration periods
+- Examination result publication
+- Fee payment deadlines
+
+Availability ensures operational continuity and institutional reliability.
+
+---
+
+### Accountability
+
+Ensure that:
+- All sensitive administrative actions are traceable
+- Privileged actions require authenticated identity
+- Audit trails cannot be repudiated
+- Actions can be attributed to a uniquely authenticated user
