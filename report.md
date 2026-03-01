@@ -549,3 +549,20 @@ Ensure that:
 - Privileged actions require authenticated identity
 - Audit trails cannot be repudiated
 - Actions can be attributed to a uniquely authenticated user
+
+# 4. Threat Modelling
+
+## STRIDE:
+
+### Spoofing:
+- Spoofing is when a process or entity is something other than its claimed identity. Examples include substituting a process, a file, website or a network address.
+### Tampering:
+- Tampering is the act of altering the bits. Tampering with a process involves changing bits in the running process. Similarly, Tampering with a data flow involves changing bits on the wire or between two running processes.
+### Repudiation: 
+- Repudiation threats involve an adversary denying that something happened.
+### Information Disclosure:
+- Information disclosure happens when the information can be read by an unauthorized party.
+### Denial of Service:
+- Denial of Service happens when the process or a datastore is not able to service incoming requests or perform up to spec.
+### Elevation of Privilege
+- A user subject gains increased capability or privilege by taking advantage of an implementation bug.
