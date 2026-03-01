@@ -856,35 +856,10 @@ Since these functions are core to university operations, avoidance is not feasib
 
 ---
 
-## 6.2 Residual Risk Analysis
+## 6.2 Risk Treatment Table
 
-Even after mitigation and transfer strategies, certain residual risks remain:
 
-1. Advanced persistent attackers may still attempt sophisticated exploitation despite layered controls.
-2. Credential compromise through user behavior (phishing, password reuse) remains partially outside system control.
-3. External provider outages (payment gateway, IdP) may impact availability.
-4. Distributed Denial of Service attacks cannot be fully prevented.
-
-These residual risks remain because:
-
-- The system is publicly accessible.
-- Human behavior cannot be fully controlled.
-- Third-party dependencies introduce shared responsibility.
-- Security operates on risk reduction, not absolute elimination.
-
-However, defense-in-depth architecture, monitoring, audit logging, and strict identity controls reduce both likelihood and impact to acceptable levels.
 
 ---
 
-## 6.3 Summary
 
-Risk treatment decisions were made based on:
-
-- Business necessity
-- Impact severity
-- Feasibility of architectural control
-- Operational practicality
-
-The secure architecture introduced in Section 4 significantly reduces the attack surface while maintaining system functionality.
-
-Residual risks are acknowledged and continuously monitored as part of ongoing security governance.
