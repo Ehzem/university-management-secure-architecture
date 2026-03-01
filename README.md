@@ -16,4 +16,4 @@ The project includes:
 
 The system is cloud-agnostic and considers both external and insider threats.
 
-See `report.md` for the full structured submission.
+See (./report.md) for the full structured submission.
