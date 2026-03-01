@@ -97,7 +97,7 @@ The following trust boundaries are defined:
 
 ---
 
-## 2.2 Initial Architecture Diagram
+## 2.4 Initial Architecture Diagram
 
 ![Initial Architecture](./diagrams/architecture-v1.png)
 
