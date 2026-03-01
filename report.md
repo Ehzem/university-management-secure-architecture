@@ -768,3 +768,123 @@ The secure redesign introduces stronger trust-boundary enforcement, separation o
 | Secure deployment practices | Supply-chain compromise, unauthorized deployment, configuration drift |
 
 ---
+
+# 6. Risk Treatment and Residual Risk
+
+Following structured threat modeling and risk prioritization, high-risk threats were evaluated using standard risk treatment strategies:
+
+- Mitigate
+- Transfer
+- Accept
+- Avoid
+
+Each high-risk threat was assigned a treatment strategy based on impact, likelihood, feasibility of control implementation, and operational necessity.
+
+---
+
+## 6.1 Risk Treatment Strategy
+
+### 6.1.1 Mitigate
+
+The majority of high-risk threats are mitigated through architectural controls introduced in Section 4.
+
+Examples include:
+
+- SQL Injection → Mitigated through parameterized queries, strict input validation, and least-privilege database access.
+- Elevation of Privilege → Mitigated via RBAC enforcement, API Gateway authorization, MFA for admin roles, and deny-by-default access.
+- Cross-Site Scripting (XSS) → Mitigated using output encoding, Content Security Policy (CSP), and input sanitization.
+- Cross-Site Request Forgery (CSRF) → Mitigated through CSRF tokens and secure cookie configuration.
+- Secrets Exposure → Mitigated by introducing a centralized Secrets Vault with controlled access and rotation policies.
+
+Mitigation was chosen where:
+
+- The threat directly affects Confidentiality, Integrity, or privileged access.
+- Controls are feasible at the architectural level.
+- The risk is unacceptable if left unaddressed.
+
+---
+
+### 6.1.2 Transfer
+
+Certain risks associated with third-party services are partially transferred through contractual and compliance mechanisms.
+
+Examples:
+
+- Payment processing risks → Transferred to certified external payment providers compliant with financial security standards.
+- Email/SMS delivery risks → Transferred to managed notification providers.
+
+Transfer was selected where:
+
+- The functionality depends on third-party infrastructure.
+- Security responsibility is shared under formal agreements.
+- Risk cannot be fully eliminated by internal architectural controls.
+
+However, webhook validation and API authentication remain internally mitigated to prevent spoofing or tampering.
+
+---
+
+### 6.1.3 Accept
+
+Some residual risks remain despite implemented controls.
+
+Example:
+
+- Denial of Service (DoS) attacks.
+
+Although WAF protection, rate limiting, and network segmentation reduce impact, complete elimination of DoS risk is impractical for any internet-facing system.
+
+Acceptance was chosen where:
+
+- Mitigation reduces impact but cannot eliminate exposure.
+- Further control would introduce disproportionate cost or complexity.
+- Residual risk remains within acceptable operational tolerance.
+
+---
+
+### 6.1.4 Avoid
+
+No high-risk threats were categorized as "Avoid".
+
+Avoidance would require removal of essential system functionality such as:
+
+- Payment processing
+- Identity integration
+- File uploads
+- Administrative access
+
+Since these functions are core to university operations, avoidance is not feasible.
+
+---
+
+## 6.2 Residual Risk Analysis
+
+Even after mitigation and transfer strategies, certain residual risks remain:
+
+1. Advanced persistent attackers may still attempt sophisticated exploitation despite layered controls.
+2. Credential compromise through user behavior (phishing, password reuse) remains partially outside system control.
+3. External provider outages (payment gateway, IdP) may impact availability.
+4. Distributed Denial of Service attacks cannot be fully prevented.
+
+These residual risks remain because:
+
+- The system is publicly accessible.
+- Human behavior cannot be fully controlled.
+- Third-party dependencies introduce shared responsibility.
+- Security operates on risk reduction, not absolute elimination.
+
+However, defense-in-depth architecture, monitoring, audit logging, and strict identity controls reduce both likelihood and impact to acceptable levels.
+
+---
+
+## 6.3 Summary
+
+Risk treatment decisions were made based on:
+
+- Business necessity
+- Impact severity
+- Feasibility of architectural control
+- Operational practicality
+
+The secure architecture introduced in Section 4 significantly reduces the attack surface while maintaining system functionality.
+
+Residual risks are acknowledged and continuously monitored as part of ongoing security governance.
