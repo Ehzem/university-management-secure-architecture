@@ -585,10 +585,8 @@ Ensure that:
 The secure redesign introduces stronger trust-boundary enforcement, separation of admin and user planes, centralized secrets management, and improved observability.
 
 **Updated Secure Architecture Diagram:**
-- `./diagrams/architecture-v2-secure.png`
 
-> Note: The initial architecture (v1) is documented in Section 2 and reflected in:
-> - `./diagrams/architecture-v1.png`
+![Updated Secure Architecture Diagram](./diagrams/architecture-v2-secure.png)
 
 ---
 
