@@ -858,7 +858,7 @@ Since these functions are core to university operations, avoidance is not feasib
 
 ## 6.2 Risk Treatment Table
 
-
+- [Risk Treatment Table (CSV)](./tables/risk-treatment-table.csv)
 
 ---
 
