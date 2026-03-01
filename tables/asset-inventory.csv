@@ -1,10 +1,11 @@
-Asset,Description,Objective
-Credentials & Sessions	User authentication tokens, passwords,	Confidentiality/Integrity/Accountability
-Student PII,	Names/IDs/contact info,	Confidentiality/Integrity
-Academic Records,	Grades/transcripts/attendance,	Integrity/Accountability
-Fee Data,	Invoices/payment status,	Integrity/Availability
-Faculty Salary Data,	Payroll records,	Confidentiality/Integrity
-LMS Content,	Assignments/submissions,	Confidentiality/Integrity/Availability
-Admin Privileges,	Registrar-level authority,	Integrity/Accountability
-Audit Logs,	Action history,	Integrity/Availability/Accountability
-API Keys,	Payment/job integration secrets,	Confidentiality
+Asset,Description,Security Objectives
+Credentials & Sessions,"Passwords, SSO tokens, session cookies, MFA factors","Confidentiality; Integrity; Accountability"
+Student PII,"Names, student IDs, contact information, enrollment data","Confidentiality; Integrity"
+Academic Records,"Grades, transcripts, GPA calculations, attendance records","Integrity; Accountability"
+Financial Data,"Fee invoices, payment status, refunds, transaction references","Integrity; Availability"
+Faculty HR Data,"Payroll records, contracts, employment information","Confidentiality; Integrity"
+LMS Content,"Assignments, submissions, course material","Confidentiality; Integrity; Availability"
+Administrative Privileges,"Registrar-level authority, role provisioning rights","Integrity; Accountability"
+Audit Logs,"Security logs, admin action logs, access history","Integrity; Availability; Accountability"
+API Secrets & Keys,"Payment API keys, webhook secrets, Email/SMS credentials","Confidentiality; Integrity"
+System Configuration & Business Rules,"GPA logic, fee calculations, authorization policies","Integrity"
