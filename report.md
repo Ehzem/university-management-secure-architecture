@@ -580,12 +580,6 @@ Ensure that:
 
 ---
 
-# 5. Secure Architecture Design
-
-This section proposes **architectural security controls** (design-level controls, not code fixes) for the University Management System (UMS). The goal is **defense-in-depth** across identity, network, data, secrets, monitoring, and deployment while maintaining a **cloud-agnostic** posture and assuming **internet-facing exposure** with both **external** and **insider** threats.
-
----
-
 ## 5.1 Updated Secure Architecture Diagram (v2)
 
 The secure redesign introduces stronger trust-boundary enforcement, separation of admin and user planes, centralized secrets management, and improved observability.
@@ -774,12 +768,5 @@ The secure redesign introduces stronger trust-boundary enforcement, separation o
 | Secrets management (vault, rotation, least privilege) | Key leakage, Webhook spoofing impact, DB credential compromise |
 | Monitoring + audit logs | Repudiation, Insider abuse detection, Incident investigation |
 | Secure deployment practices | Supply-chain compromise, unauthorized deployment, configuration drift |
-
----
-
-## 5.9 Evidence Produced
-
-- **Updated architecture diagram (v2):** `./diagrams/architecture-v2-secure.png`
-- **Written justification:** This section (4.2–4.8)
 
 ---
