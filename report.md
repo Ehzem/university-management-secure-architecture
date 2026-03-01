@@ -577,3 +577,209 @@ Ensure that:
 
 ## 4.3 Threat Table
 - [Threat Model Table (CSV)](./tables/threat-model-table.csv)
+
+---
+
+# 5. Secure Architecture Design
+
+This section proposes **architectural security controls** (design-level controls, not code fixes) for the University Management System (UMS). The goal is **defense-in-depth** across identity, network, data, secrets, monitoring, and deployment while maintaining a **cloud-agnostic** posture and assuming **internet-facing exposure** with both **external** and **insider** threats.
+
+---
+
+## 5.1 Updated Secure Architecture Diagram (v2)
+
+The secure redesign introduces stronger trust-boundary enforcement, separation of admin and user planes, centralized secrets management, and improved observability.
+
+**Updated Secure Architecture Diagram:**
+- `./diagrams/architecture-v2-secure.png`
+
+> Note: The initial architecture (v1) is documented in Section 2 and reflected in:
+> - `./diagrams/architecture-v1.png`
+
+---
+
+## 5.2 Identity and Access Management (IAM)
+
+### Controls
+1. **Centralized authentication via Identity Provider (SSO)**
+   - Use standards-based SSO (OIDC/SAML) for all users (students, faculty, admin).
+
+2. **Mandatory MFA for privileged roles**
+   - Enforce MFA for Admin/Registrar and optionally Faculty roles.
+
+3. **Role-Based Access Control (RBAC) at the API Backend**
+   - All authorization decisions occur at the API layer (server-side), not in the frontend.
+   - Deny-by-default access policy for sensitive endpoints.
+
+4. **Step-up authentication for high-risk admin actions**
+   - Require re-authentication / step-up MFA for actions like grade overrides, fee adjustments, role changes.
+
+### Justification
+- Reduces **Spoofing** risk (credential stuffing, token theft) and limits damage if a user session is compromised.
+- Ensures authorization is enforced consistently at a trusted layer, addressing **Elevation of Privilege** and **IDOR**-style threats.
+
+---
+
+## 5.3 Network Segmentation and Trust Boundary Enforcement
+
+### Controls
+1. **Separate admin plane from user plane**
+   - Maintain distinct access paths:
+     - Student/Faculty → WAF/Reverse Proxy → Web Frontend → API
+     - Admin → Admin Edge Gateway → Admin Portal → API
+
+2. **Edge protection layer**
+   - Place WAF/Reverse Proxy in front of public endpoints.
+   - Add rate limiting and request filtering at the edge.
+
+3. **Application network isolation**
+   - Place API Backend and internal services in an application network segment.
+   - Only allow inbound traffic from the frontends/gateways.
+
+4. **Data network isolation**
+   - Place databases and log stores in a separate data segment.
+   - Only allow database access from API Backend (no direct access from frontends).
+
+### Justification
+- Clear trust boundaries reduce attack surface and enforce least privilege between tiers.
+- Contains lateral movement: compromise of a frontend should not grant direct database access.
+- Improves resilience against **DoS** and reduces exposure to **Tampering / Information Disclosure** threats.
+
+---
+
+## 5.4 Data Protection
+
+### Controls
+1. **Encryption in transit (TLS)**
+   - Enforce TLS for all browser-to-system and system-to-third-party communication.
+   - Use mutual TLS or equivalent internal transport security for sensitive internal service calls where possible.
+
+2. **Encryption at rest**
+   - Encrypt:
+     - Student DB
+     - HR DB
+     - Finance DB
+     - Backups
+     - Sensitive logs (where appropriate)
+
+3. **Data minimization and access scoping**
+   - Services access only required data for their function (least-privileged data access).
+   - Faculty access scoped to course-related students only (policy enforced by backend authorization).
+
+4. **Secure file handling for LMS content**
+   - Store uploads in a non-executable content store.
+   - Introduce an upload scanning/validation service in the secure architecture.
+
+### Justification
+- Protects confidentiality of PII, HR salary data, and financial records.
+- Prevents integrity attacks against grades/fees and reduces the impact of storage compromise.
+- Mitigates file upload abuse and malware distribution risks.
+
+---
+
+## 5.5 Secrets Management
+
+### Controls
+1. **Centralized Secrets Vault**
+   - Introduce a Secrets Vault in the data trust boundary (v2).
+   - API Backend retrieves:
+     - Database credentials
+     - Payment provider API keys
+     - Webhook verification secrets
+     - Email/SMS gateway credentials
+
+2. **Least privilege access to secrets**
+   - Only backend services (primarily API Backend) can access the vault.
+   - Frontends never store long-term secrets.
+
+3. **Rotation and separation of secrets**
+   - Separate secrets per environment (dev/test/prod).
+   - Rotate high-value secrets (payment keys, webhook secrets, DB creds).
+
+### Justification
+- Reduces blast radius of credential exposure and prevents secrets being embedded in configs or code.
+- Strongly mitigates **Information Disclosure** and downstream **Elevation of Privilege** resulting from stolen keys.
+
+---
+
+## 5.6 Monitoring and Logging
+
+### Controls
+1. **Centralized logging + immutable audit trail**
+   - Centralize security logs and application logs.
+   - Ensure privileged actions (admin workflows) create audit entries.
+
+2. **High-value audit events**
+   - Track (at minimum):
+     - Authentication attempts (success/failure)
+     - Role changes / privilege grants
+     - Grade overrides and transcript edits
+     - Fee status changes and manual adjustments
+     - Bulk data exports
+     - Payment webhook processing outcomes
+
+3. **Alerting and anomaly detection**
+   - Alert on:
+     - Multiple failed logins
+     - Unusual admin activity
+     - Large/rapid grade changes
+     - Suspicious payment webhook patterns
+     - Access from unexpected geographies/devices (if available)
+
+4. **Log integrity protections**
+   - Restrict who can modify logs.
+   - Use append-only storage / integrity checks to reduce tampering.
+
+### Justification
+- Supports **Accountability** and non-repudiation (users cannot credibly deny actions).
+- Enables rapid detection and containment of both external attacks and insider misuse.
+- Mitigates **Repudiation** and reduces time-to-detect/time-to-respond.
+
+---
+
+## 5.7 Secure Deployment Practices
+
+### Controls
+1. **Environment separation**
+   - Separate dev/test/prod environments and credentials.
+   - Prevent test systems from accessing production data.
+
+2. **Hardened CI/CD pipeline**
+   - Protected branches, mandatory reviews.
+   - Signed build artifacts and controlled deployment permissions.
+   - Restrict who can trigger production deploys.
+
+3. **Least privilege service identities**
+   - Each service runs with minimal permissions required.
+   - Remove shared admin credentials for infrastructure tasks.
+
+4. **Baseline configuration hardening**
+   - Secure defaults (deny by default inbound).
+   - Regular patching and vulnerability scanning (dependency + container/image scanning).
+
+### Justification
+- Reduces supply-chain and deployment compromise risks.
+- Prevents unauthorized modification of the production system.
+- Limits impact of credential leakage in build/deploy processes.
+
+---
+
+## 5.8 Control-to-Threat Coverage Summary
+
+| Control Area | What It Mitigates (Examples) |
+|---|---|
+| IAM (SSO, MFA, RBAC, step-up auth) | Spoofing, Elevation of Privilege, Unauthorized access, IDOR-type abuse |
+| Network segmentation + trust boundaries | Lateral movement, Data exposure, Reduced attack surface, Containment |
+| Data protection (TLS, encryption at rest, secure file handling) | Information disclosure, Tampering, Malware upload impacts |
+| Secrets management (vault, rotation, least privilege) | Key leakage, Webhook spoofing impact, DB credential compromise |
+| Monitoring + audit logs | Repudiation, Insider abuse detection, Incident investigation |
+| Secure deployment practices | Supply-chain compromise, unauthorized deployment, configuration drift |
+
+---
+
+## 5.9 Evidence Produced
+
+- **Updated architecture diagram (v2):** `./diagrams/architecture-v2-secure.png`
+- **Written justification:** This section (4.2–4.8)
+
+---
