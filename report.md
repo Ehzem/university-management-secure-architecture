@@ -550,6 +550,8 @@ Ensure that:
 - Audit trails cannot be repudiated
 - Actions can be attributed to a uniquely authenticated user
 
+---
+
 # 4. Threat Modelling
 
 ## STRIDE:
@@ -566,3 +568,8 @@ Ensure that:
 - Denial of Service happens when the process or a datastore is not able to service incoming requests or perform up to spec.
 ### Elevation of Privilege
 - A user subject gains increased capability or privilege by taking advantage of an implementation bug.
+
+---
+
+## Threat Model/Annotated Architecture
+![Threat Model](./diagrams/threat-diagram.png)
