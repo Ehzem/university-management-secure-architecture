@@ -1,4 +1,4 @@
-Threat Title,Category,Interaction,Unnamed: 3,Priority,Description
+Threat Title,Category,Interaction,Affected Component,Priority,Description
 Cross Site Scripting,Tampering,Portal Request (HTTPS),Student and WAF/Reverse Proxy,Medium,The web server 'WAF / Reverse Proxy' could be a subject to a cross-site scripting attack because it does not sanitize untrusted input.
 Cross Site Scripting,Tampering,Portal Request (HTTPS),Student and WAF/Reverse Proxy,Medium,The web server 'WAF / Reverse Proxy' could be a subject to a cross-site scripting attack because it does not sanitize untrusted input.
 Cross Site Scripting,Tampering,Admin Login (HTTPS),Admin and Admin Portal,High,The web server 'Admin Portal' could be a subject to a cross-site scripting attack because it does not sanitize untrusted input.
